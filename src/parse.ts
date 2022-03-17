@@ -21,7 +21,7 @@ const matcher =
 const refcodeMatcher = /Ref Code ((?:ODD|EDC)\d{5})(\D+)(.*)/
 
 const transferMatcher =
-  /To (\w+\s)?(X\d{4})(.*)Transfer Withdrawal(\d+,*\d+(?:\.\d+))/
+  /To (\w+\s)?(X\d{4})(?: PromptPay (X\d{4}))?(.*)Transfer Withdrawal(\d+,*\d+(?:\.\d+))/
 
 const payrollMatcher =
   /KBANK PAYROLL Ref (\d{8})Transfer Deposit(\d+,*\d+(?:\.\d+))/
@@ -78,13 +78,15 @@ export function parseStatement(input: string) {
         const transferMatches = transferMatcher.exec(meta)
         if (!transferMatches) return err('TRANSFER')
 
-        let [_, method, ref, payee, amount] = transferMatches
+        let [_, method, ref, promptpayRef, payee, amount] = transferMatches
 
         payee = payee.replace(/\+\+/, '').trim()
         method = method?.trim()
 
+        const isPromptPay = method === 'PromptPay' || promptpayRef
+
         return {
-          type: method === 'PromptPay' ? 'PROMPTPAY_TRANSFER' : 'BANK_TRANSFER',
+          type: isPromptPay ? 'PROMPTPAY_TRANSFER' : 'BANK_TRANSFER',
           ref,
           date,
           payee,
@@ -93,6 +95,7 @@ export function parseStatement(input: string) {
           balance: parseCurrency(balance),
 
           ...(method !== 'PromptPay' && {bank: method}),
+          ...(promptpayRef && {ref2: promptpayRef}),
         }
       }
 

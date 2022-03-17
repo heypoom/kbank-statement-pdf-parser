@@ -15,6 +15,7 @@ export interface Transaction {
   payee?: string
   channel: string
   ref: string
+  ref2?: string
   amount: number
   balance: number
   date: Date
