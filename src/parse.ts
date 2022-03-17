@@ -42,7 +42,9 @@ const transactionMethodMap: Record<string, TransactionType> = {
 }
 
 export function parseStatement(input: string) {
-  const entries = preprocessInput(input)
+  const lines = preprocessInput(input)
+
+  const entries = lines
     .map((line): Transaction | ParseError | null => {
       const err = (error: ParseErrorType): ParseError => ({error, line})
 
@@ -167,5 +169,5 @@ export function parseStatement(input: string) {
 
   const errors = entries.filter((e) => e && 'error' in e)
 
-  return {transactions, errors}
+  return {transactions, errors, lines}
 }

@@ -1,21 +1,28 @@
 const prefixPattern = /^(\d{2})-(\d{2})-(\d{2})/
 
+const isLineValid = (line: string) => prefixPattern.test(line)
+
 export function preprocessInput(input: string): string[] {
   const entries: string[] = []
   const sources = input.split('\n')
 
   let prev = ''
   let buffer = ''
+  let lastLine = ''
 
   for (const line of sources) {
-    if (line.startsWith('Issued by K PLUS') || line.startsWith('KBPDF')) {
+    if (
+      line.startsWith('Issued by K PLUS') ||
+      line.startsWith('KBPDF') ||
+      line.startsWith('For more information')
+    ) {
       buffer = ''
       prev = ''
 
       continue
     }
 
-    const isValidLine = prefixPattern.test(line)
+    const isValidLine = isLineValid(line)
 
     // flush previous item in buffer
     if (isValidLine && buffer) {
@@ -33,7 +40,10 @@ export function preprocessInput(input: string): string[] {
     }
 
     prev = line
+    lastLine = line
   }
+
+  entries.push(lastLine)
 
   return entries
 }
