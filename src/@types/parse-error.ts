@@ -6,6 +6,7 @@ export type ParseErrorType =
   | 'UNKNOWN'
   | 'PAYMENT'
   | 'PAYMENT_AMOUNT_MISSING'
+  | 'PAYMENT_PAYEE_MISSING'
   | 'PAYROLL'
 
 export interface ParseError {

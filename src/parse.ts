@@ -120,29 +120,22 @@ export function parseStatement(input: string) {
         const paymentMatches = paymentMatcher.exec(meta)
         if (!paymentMatches) return err('PAYMENT')
 
-        let [_, ref, payee] = paymentMatches
-        payee = payee.trim()
+        let [_, ref, paymentMeta] = paymentMatches
+        paymentMeta = paymentMeta.trim()
 
-        let amount = -1
+        const paymentAmountMatches = paymentAmountMatcher.exec(paymentMeta)
+        if (!paymentAmountMatches) return err('PAYMENT_AMOUNT_MISSING')
 
-        const paymentAmountMatches = paymentAmountMatcher.exec(payee)
-        // if (!paymentAmountMatches) return err('PAYMENT_AMOUNT_MISSING')
-
-        // TODO(Poom): Fix PDF line wrapping parsing
-        if (paymentAmountMatches) {
-          const [__, payeeItem, amountItem] = paymentAmountMatches
-
-          if (amountItem) amount = parseCurrency(amountItem)
-          if (payeeItem) payee = payeeItem
-        }
+        const [__, payee, amount] = paymentAmountMatches
+        if (!payee) return err('PAYMENT_PAYEE_MISSING')
 
         return {
           type: 'PAYMENT',
           ref,
           date,
           channel,
-          amount,
           payee,
+          amount: parseCurrency(amount),
           balance: parseCurrency(balance),
         }
       }
