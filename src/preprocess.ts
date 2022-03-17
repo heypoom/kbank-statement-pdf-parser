@@ -20,7 +20,6 @@ export function preprocessInput(input: string): string[] {
     // flush previous item in buffer
     if (isValidLine && buffer) {
       if (prefixPattern.test(buffer)) {
-        console.log('>>> FLUSHING =', buffer)
         entries.push(buffer)
       }
 
