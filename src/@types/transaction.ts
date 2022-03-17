@@ -10,6 +10,7 @@ export type TransactionType =
   | 'UNKNOWN'
 
 export interface Transaction {
+  id?: string
   type: TransactionType
   bank?: string
   payee?: string

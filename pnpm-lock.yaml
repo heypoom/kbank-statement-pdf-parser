@@ -2,23 +2,31 @@ lockfileVersion: 5.3
 
 specifiers:
   '@types/luxon': ^2.3.0
+  '@types/object-hash': ^2.2.1
   '@types/pdf-parse': ^1.1.1
   luxon: ^2.3.1
+  object-hash: ^3.0.0
   pdf-parse: ^1.1.1
 
 dependencies:
-  '@types/luxon': 2.3.0
   luxon: 2.3.1
+  object-hash: 3.0.0
   pdf-parse: 1.1.1
 
 devDependencies:
+  '@types/luxon': 2.3.0
+  '@types/object-hash': 2.2.1
   '@types/pdf-parse': 1.1.1
 
 packages:
 
   /@types/luxon/2.3.0:
     resolution: {integrity: sha512-mWXdRlg+5dWvxU+uaijB2RY5NrJtMEXR6j+D6W66hPuezSVXrQqQvWa/JNHntgEYgjzeoVRrQVmMWAbKjUJiFQ==}
-    dev: false
+    dev: true
+
+  /@types/object-hash/2.2.1:
+    resolution: {integrity: sha512-i/rtaJFCsPljrZvP/akBqEwUP2y5cZLOmvO+JaYnz01aPknrQ+hB5MRcO7iqCUsFaYfTG8kGfKUyboA07xeDHQ==}
+    dev: true
 
   /@types/pdf-parse/1.1.1:
     resolution: {integrity: sha512-lDBKAslCwvfK2uvS1Uk+UCpGvw+JRy5vnBFANPKFSY92n/iEnunXi0KVBjPJXhsM4jtdcPnS7tuZ0zjA9x6piQ==}
@@ -41,6 +49,11 @@ packages:
 
   /node-ensure/0.0.0:
     resolution: {integrity: sha1-7K52QVDemYYexcgQ/V0Jaxg5Mqc=}
+    dev: false
+
+  /object-hash/3.0.0:
+    resolution: {integrity: sha512-RSn9F68PjH9HqtltsSnqYC1XXoWe9Bju5+213R98cNGttag9q9yAOTzdbsqvIa7aNm5WffBZFpWYr2aWrklWAw==}
+    engines: {node: '>= 6'}
     dev: false
 
   /pdf-parse/1.1.1:

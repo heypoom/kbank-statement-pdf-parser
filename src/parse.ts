@@ -4,6 +4,7 @@ import {preprocessInput} from './preprocess'
 
 import type {ParseError, ParseErrorType} from './@types/parse-error'
 import type {Transaction, TransactionType} from './@types/transaction'
+import {id} from './utils/id'
 
 const dateFormat = 'yy-LL-dd hh:mm'
 
@@ -169,6 +170,7 @@ export function parseStatement(input: string) {
     .filter((e) => e && !('error' in e))
     .map((tx) => tx as Transaction)
     .sort((a, b) => b.date.getTime() - a.date.getTime())
+    .map((tx) => ({...tx, id: id(tx)}))
 
   const errors = entries.filter((e) => e && 'error' in e)
 
