@@ -8,11 +8,10 @@ export function preprocessInput(input: string): string[] {
   let buffer = ''
 
   for (const line of sources) {
-    if (line.startsWith('KBPDF')) continue
-
-    if (line.startsWith('Issued by K PLUS')) {
+    if (line.startsWith('Issued by K PLUS') || line.startsWith('KBPDF')) {
       buffer = ''
       prev = ''
+
       continue
     }
 
